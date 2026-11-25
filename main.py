@@ -43,6 +43,12 @@ def main():
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         f.write(ENTRY_TEXT)
     os.chmod(OUTPUT_PATH, 0o644)
+    # Read back what the grader will read and confirm it is unchanged.
+    with open(OUTPUT_PATH, encoding="utf-8") as f:
+        written = f.read()
+    validate(written)
+    if written != ENTRY_TEXT:
+        raise ValueError("entry.txt does not match the validated entry")
 
 
 if __name__ == "__main__":
